@@ -1,0 +1,21 @@
+# Helm inline values 꼴
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lab-helm-inline
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: REPO_URL   # 묶음 C 때 시험 레포 주소로 바꿈(결과 문서에는 적지 않음)
+    targetRevision: main
+    path: apps/helm
+    helm:
+      values: |
+        autoscaling:
+          maxReplicas: 10
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fso-lab
+  syncPolicy:
+    syncOptions: [CreateNamespace=true]

@@ -1,0 +1,17 @@
+# 추적 방식은 Argo CD 설정(argocd-cm)의 전역 값이라 앱별로 못 나눔. 라벨·어노테이션 비교는 설정을 바꿔 두 번 적용
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lab-plain
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: REPO_URL   # 묶음 C 때 시험 레포 주소로 바꿈(결과 문서에는 적지 않음)
+    targetRevision: main
+    path: apps/plain
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fso-lab
+  syncPolicy:
+    syncOptions: [CreateNamespace=true]

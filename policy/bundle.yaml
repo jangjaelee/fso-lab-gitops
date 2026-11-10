@@ -1,0 +1,16 @@
+# 조직 정책 레포 꼴 표본(LLD §12.6). 동결 창 1개
+apiVersion: fso.policy/v1alpha1
+kind: PolicyBundle
+rules:
+  - id: value_limit
+    action: gitops.set_value
+    mode: audit
+    params: { max_ratio: 3 }
+  - id: scope_allow
+    mode: enforce
+    params: { namespaces: ["fso-lab"] }
+freeze:
+  - { name: lab-week, from: "2026-12-01T00:00:00+09:00", to: "2026-12-08T00:00:00+09:00",
+      selector: { env_class: [prod] }, revert_allowed: true }
+verify: { window_sec: 1800 }
+approval: { first_sec: 86400, step_sec: 14400, execute_sec: 259200 }

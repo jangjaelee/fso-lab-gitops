@@ -1,0 +1,4 @@
+# 값 위치 규칙 표본: autoscaling.maxReplicas -> ScaledObject spec.maxReplicaCount
+autoscaling:
+  minReplicas: 1
+  maxReplicas: 10

@@ -1,0 +1,18 @@
+# Flux HelmRelease inline values 꼴: 같은 차트를 values로 덮음
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hr-app
+  namespace: fso-lab
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: ./apps/helm
+      sourceRef:
+        kind: GitRepository
+        name: fso-lab-gitops
+        namespace: flux-system
+  values:
+    autoscaling:
+      maxReplicas: 10

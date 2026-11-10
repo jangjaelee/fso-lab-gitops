@@ -1,0 +1,36 @@
+# 평 YAML 꼴: Deployment와 ScaledObject를 한 파일에 둔 다중 문서
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plain-app
+  namespace: fso-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: plain-app}
+  template:
+    metadata:
+      labels: {app: plain-app}
+    spec:
+      containers:
+        - name: app
+          image: registry.k8s.io/pause:3.10
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+---
+# 상한은 아래 한 줄만 바꿈
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: plain-app
+  namespace: fso-lab
+spec:
+  scaleTargetRef:
+    name: plain-app
+  minReplicaCount: 1
+  maxReplicaCount: 10  # upper bound
+  triggers:
+    - type: cpu
+      metricType: Utilization
+      metadata:
+        value: "60"

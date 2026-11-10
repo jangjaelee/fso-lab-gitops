@@ -1,0 +1,8 @@
+# prod-a 덮어쓰기: base의 maxReplicaCount를 이 파일이 덮음
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: kust-app
+  namespace: fso-lab
+spec:
+  maxReplicaCount: 20

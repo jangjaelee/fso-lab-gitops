@@ -1,0 +1,37 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: fso-lab-gitops
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: REPO_URL   # 묶음 C 때 시험 레포 주소로 바꿈
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-kust
+  namespace: flux-system
+spec:
+  interval: 10m
+  prune: true
+  path: ./apps/kustomize/overlays/prod-a
+  targetNamespace: fso-lab-flux
+  sourceRef:
+    kind: GitRepository
+    name: fso-lab-gitops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-helmrelease
+  namespace: flux-system
+spec:
+  interval: 10m
+  prune: true
+  path: ./apps/helmrelease
+  sourceRef:
+    kind: GitRepository
+    name: fso-lab-gitops
