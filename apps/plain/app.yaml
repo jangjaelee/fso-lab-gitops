@@ -28,7 +28,7 @@ spec:
   scaleTargetRef:
     name: plain-app
   minReplicaCount: 1
-  maxReplicaCount: 10  # upper bound
+  maxReplicaCount: 14  # upper bound
   triggers:
     - type: cpu
       metricType: Utilization
