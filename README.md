@@ -11,3 +11,4 @@ FSO 실측용 시험 레포입니다. 공개 예제 수준의 중립 매니페�
 | `argocd` | Application 4개 |
 | `flux` | GitRepository·Kustomization |
 | `policy` | 조직 정책 레포 꼴(동결 창 1개) |
+# scenario4 human commit
